@@ -2,7 +2,6 @@ package routes
 
 import (
 	"digimer-api/src/factories"
-	"log"
 
 	"github.com/labstack/echo/v4"
 )
@@ -13,8 +12,6 @@ func New() *echo.Echo {
 
 	webFactory := factories.WebInit()
 	// apiFactory := factories.ApiInit()
-
-	log.Println("llll")
 
 	// main
 	route.GET("/", webFactory.InitialPageHandler.InitialPage)
