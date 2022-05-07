@@ -1,0 +1,77 @@
+name: "running unit test"
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  unit-test:
+    name: "unit test"
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: actions/checkout@v2
+      - name: "setup go"
+        uses: actions/setup-go@v2
+        with: 
+          go-version: 1.17.5
+      - name: running unit test
+        run: go test ./... -cover
+
+  build: 
+    name: build program
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout 
+        uses: actions/checkout@v2
+      - name: setup go
+        uses: actions/setup-go@v2
+        with: 
+          go-version: 1.17.5
+      - name: build on go
+        run: go build main.go
+  
+  release:
+    name: semantic release
+    runs-on: ubuntu-latest
+    needs: [ build ]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v2.5.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        with:
+          extra_plugins: |
+            @semantic-release/git
+            @semantic-release/exec
+            @semantic-release/changelog
+
+  # docker-compose:
+  #   name: build docker image
+  #   runs-on: "ubuntu-latest"
+  #   needs: unit-test
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: config .env
+  #       env:
+  #         ENV: ${{secrets.ENV_STAGING}}
+  #       run: echo "$ENV" > app.env
+  #     - name: build image
+  #       run: docker build -t thisham/merchandise-api:latest .
+  #     - name: login AWS ECR
+  #       id: login-ecr
+  #       uses: aws-actions/amazon-ecr-login@v1
+  #     - name: build, tag and push image to ECR
+  #       uses: docker/login-action@v1
+  #       env:
+  #         ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
+  #         ECR_REPOSITORY: digimer-api
+  #         IMAGE_TAG: 
+  #         username: ${{ secrets.DOCKERHUB_USERNAME }}
+  #         password: ${{ secrets.DOCKERHUB_PAT }}
+  #     - name: push image to dockerhub
+  #       run: docker push thisham/merchandise-api:latest
