@@ -12,6 +12,7 @@
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
+[![semantic-release: angular][semantic-badge]][semantic-url]
   
 </div>
 
@@ -110,3 +111,5 @@ Thanks goes to these wonderful people:
 [license-url]: https://github.com/thisham/clinic-digimer-api/blob/master/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/hamdanyuwafi
+[semantic-badge]: https://img.shields.io/badge/semantic--release-angular-e10079?style=for-the-badge&logo=semantic-release
+[semantic-url]: https://github.com/semantic-release/semantic-release
