@@ -1,0 +1,40 @@
+get:
+  security:
+    - CookieAuth: []
+
+  responses:
+    '200': 
+      description: OK
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '../../components/index.yml#/components/responses_no_meta/200'
+              - $ref: '../../components/index.yml#/components/partials/admin/profile'
+    '400': 
+      $ref: '../../components/index.yml#/components/responses/400'
+    '401': 
+      $ref: '../../components/index.yml#/components/responses/401'
+    '500': 
+      $ref: '../../components/index.yml#/components/responses/500'
+
+put:
+  security:
+    - CookieAuth: []
+    
+  requestBody:
+    required: true
+    content: 
+      application/json:
+        schema:
+          $ref: '../../components/index.yml#/components/partials/admin/profile'
+
+  responses:
+    '204': 
+      $ref: '../../components/index.yml#/components/responses/204'
+    '400': 
+      $ref: '../../components/index.yml#/components/responses/400'
+    '401': 
+      $ref: '../../components/index.yml#/components/responses/401'
+    '500': 
+      $ref: '../../components/index.yml#/components/responses/500'

@@ -1,0 +1,66 @@
+get:
+  security:
+    - CookieAuth: []
+    
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '../../components/index.yml#/components/responses_no_meta/200'
+              - $ref: '../../components/index.yml#/components/schemas/prescription/response'
+    '400': 
+      $ref: '../../components/index.yml#/components/responses/400'
+    '401': 
+      $ref: '../../components/index.yml#/components/responses/401'
+    '403': 
+      $ref: '../../components/index.yml#/components/responses/403'
+    '404': 
+      $ref: '../../components/index.yml#/components/responses/404'
+    '500': 
+      $ref: '../../components/index.yml#/components/responses/500'
+
+put:
+  security:
+    - CookieAuth: []
+    
+  requestBody:
+    required: true
+    content: 
+      application/json:
+        schema:
+          $ref: '../../components/index.yml#/components/schemas/prescription/request'
+  
+  responses:
+    '204': 
+      $ref: '../../components/index.yml#/components/responses/204'
+    '400': 
+      $ref: '../../components/index.yml#/components/responses/400'
+    '401': 
+      $ref: '../../components/index.yml#/components/responses/401'
+    '403': 
+      $ref: '../../components/index.yml#/components/responses/403'
+    '404': 
+      $ref: '../../components/index.yml#/components/responses/404'
+    '500': 
+      $ref: '../../components/index.yml#/components/responses/500'
+
+delete: 
+  security:
+    - CookieAuth: []
+    
+  responses:
+    '204': 
+      $ref: '../../components/index.yml#/components/responses/204'
+    '400': 
+      $ref: '../../components/index.yml#/components/responses/400'
+    '401': 
+      $ref: '../../components/index.yml#/components/responses/401'
+    '403': 
+      $ref: '../../components/index.yml#/components/responses/403'
+    '404': 
+      $ref: '../../components/index.yml#/components/responses/404'
+    '500': 
+      $ref: '../../components/index.yml#/components/responses/500'

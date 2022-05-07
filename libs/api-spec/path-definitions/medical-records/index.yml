@@ -1,0 +1,38 @@
+post:
+  requestBody:
+    required: true
+    content: 
+      application/json:
+        schema:
+          $ref: '../../components/index.yml#/components/schemas/medical_record/request'
+  
+  responses:
+    '201': 
+      $ref: '../../components/index.yml#/components/responses/201'
+    '400': 
+      $ref: '../../components/index.yml#/components/responses/400'
+    '401': 
+      $ref: '../../components/index.yml#/components/responses/401'
+    '403': 
+      $ref: '../../components/index.yml#/components/responses/403'
+    '500': 
+      $ref: '../../components/index.yml#/components/responses/500'
+
+get:
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '../../components/index.yml#/components/responses_no_meta/200'
+              - type: array 
+                items:
+                  $ref: '../../components/index.yml#/components/schemas/medical_record/response'
+    '401': 
+      $ref: '../../components/index.yml#/components/responses/401'
+    '403': 
+      $ref: '../../components/index.yml#/components/responses/403'
+    '500': 
+      $ref: '../../components/index.yml#/components/responses/500'

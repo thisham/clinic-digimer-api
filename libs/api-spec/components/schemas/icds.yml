@@ -1,0 +1,58 @@
+_search_item:
+  type: object
+  properties:
+    code: 
+      type: string
+      example: A75.0
+    description: 
+      type: string
+      example: Epidemic louse-borne typhus fever due to Rickettsia prowazekii
+
+_lookup_item:
+  type: object
+  properties:
+    code: 
+      type: string
+      example: A75.0
+    description:
+      type: string
+      example: Epidemic louse-borne typhus fever due to Rickettsia prowazekii
+    is_hipaa_valid:
+      type: boolean
+      example: true
+    includes:
+      type: array
+      items:
+        - type: string
+          example: Classical typhus (fever)
+        - type: string
+          example: Epidemic (louse-borne) typhus
+    excludes_one:
+      type: array
+      items:
+        - type: string 
+    excludes_two:
+      type: array
+      items:
+        - type: string 
+    type:
+      type: string
+      example: ICD-10-CM
+    is_response:
+      type: boolean
+      example: true
+
+# search:
+#   type: object
+#   properties:
+#     code:
+#       type: string
+#       example: A75.0
+
+search_result:
+  type: array
+  items: 
+    $ref: '#/_search_item'
+
+lookup_result:
+  $ref: '#/_lookup_item'

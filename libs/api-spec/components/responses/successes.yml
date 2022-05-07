@@ -1,0 +1,51 @@
+no_metas:
+  '200':
+    type: object
+    properties: 
+      message:
+        type: string
+        example: OK
+      code:
+        type: number
+        example: 200
+
+  '201':
+    type: object
+    properties:
+      message:
+        type: string
+        example: Created
+      code:
+        type: number
+        example: 201
+
+'200':
+  description: OK
+  content:
+    application/json:
+      schema:
+        type: object
+        properties: 
+          message:
+            type: string
+            example: OK
+          code:
+            type: number
+            example: 200
+
+'201':
+  description: Created
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            example: Created
+          code:
+            type: number
+            example: 201
+
+'204':
+  description: No Content

@@ -1,0 +1,97 @@
+components:
+  responses:
+    '200': 
+      $ref: './responses/successes.yml#/200'
+    '201': 
+      $ref: './responses/successes.yml#/201'
+    '204': 
+      $ref: './responses/successes.yml#/204'
+    '400': 
+      $ref: './responses/user-fails.yml#/400'
+    '401': 
+      $ref: './responses/user-fails.yml#/401'
+    '403': 
+      $ref: './responses/user-fails.yml#/403'
+    '404': 
+      $ref: './responses/user-fails.yml#/404'
+    '500': 
+      $ref: './responses/server-errors.yml#/500'
+
+  responses_no_meta:
+    '200': 
+      $ref: './responses/successes.yml#/no_metas/200'
+    '201': 
+      $ref: './responses/successes.yml#/no_metas/201'
+  
+  schemas:
+    admin:
+      auth:
+        $ref: './schemas/admins.yml#/auth'
+      request:
+        $ref: './schemas/admins.yml#/request'
+      response:
+        $ref: './schemas/admins.yml#/response'
+    doctor:
+      auth:
+        $ref: './schemas/doctors.yml#/auth'
+      request:
+        $ref: './schemas/doctors.yml#/request'
+      response:
+        $ref: './schemas/doctors.yml#/response'
+    icd:
+      search_result:
+        $ref: './schemas/icds.yml#/search_result'
+      lookup_result:
+        $ref: './schemas/icds.yml#/lookup_result'
+    laboratory_test_result:
+      request:
+        $ref: './schemas/laboratory_test_results.yml#/request'
+      response:
+        $ref: './schemas/laboratory_test_results.yml#/response'
+    medical_record_category:
+      request:
+        $ref: './schemas/medical_record_categories.yml#/request'
+      response:
+        $ref: './schemas/medical_record_categories.yml#/response'
+    medical_record:
+      request:
+        $ref: './schemas/medical_records.yml#/request'
+      response:
+        $ref: './schemas/medical_records.yml#/response'
+    medicine:
+      request:
+        $ref: './schemas/medicines.yml#/request'
+      response:
+        $ref: './schemas/medicines.yml#/response'
+    patient:
+      search_result:
+        $ref: './schemas/patients.yml#/search_result'
+      request:
+        $ref: './schemas/patients.yml#/request'
+      response:
+        $ref: './schemas/patients.yml#/response'
+    polyclinic:
+      request:
+        $ref: './schemas/polyclinics.yml#/request'
+      response:
+        $ref: './schemas/polyclinics.yml#/response'
+    prescription:
+      request:
+        $ref: './schemas/prescriptions.yml#/request'
+      response:
+        $ref: './schemas/prescriptions.yml#/response'
+  
+  securitySchemes:
+    - $ref: './securities/cookie.yml#/CookieAuth'
+
+  partials:
+    doctor:
+      profile:
+        allOf:
+          - $ref: './schemas/doctors.yml#/_main'
+          - $ref: './schemas/doctors.yml#/_email'
+    admin:
+      profile:
+        allOf:
+          - $ref: './schemas/admins.yml#/_main'
+          - $ref: './schemas/admins.yml#/_email'

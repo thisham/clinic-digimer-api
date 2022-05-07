@@ -1,0 +1,61 @@
+_date:
+  type: object
+  properties:
+    created_at:
+      type: date
+      example: 2022-08-10 22:22:20
+    updated_at:
+      type: date
+      example: 2022-08-10 22:22:20
+
+_id: 
+  type: object
+  properties:
+    id: 
+      type: string
+      example: ad112233-dumm-dumm-dumm-dummycreated
+
+_main: 
+  type: object
+  properties:
+    name:
+      type: string
+      example: dr. Damar Danendra
+    sip_number:
+      type: string
+      example: SIP.DE.102010.111.1219
+    phone:
+      type: string
+      example: 0888881393719
+
+_email:
+  type: object
+  properties:
+    email:
+      type: string
+      example: damardanendra@klinikoke.com
+
+_password:
+  type: object
+  properties:
+    password:
+      type: string
+      example: thestrongestpassword
+
+auth:
+  allOf:
+    - $ref: '#/_email'
+    - $ref: '#/_password'
+
+response:
+  allOf: 
+    - $ref: '#/_id'
+    - $ref: '#/_main'
+    - $ref: '#/_email'
+    - $ref: '#/_date'
+
+request:
+  allOf:
+    - $ref: '#/_main'
+    - $ref: '#/_email'
+    - $ref: '#/_password'

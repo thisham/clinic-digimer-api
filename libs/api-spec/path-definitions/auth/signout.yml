@@ -1,0 +1,12 @@
+get:
+  security:
+    - CookieAuth: []
+  tags: [ 'Authentication' ]
+  description: auth logout.
+  responses:
+    '200':
+      $ref: '../../components/index.yml#/components/responses/200'
+    '401':
+      $ref: '../../components/index.yml#/components/responses/401'
+    '500':
+      $ref: '../../components/index.yml#/components/responses/500'

@@ -1,0 +1,63 @@
+_id:
+  type: object
+  properties:
+    id: 
+      type: string
+      example: add11223-dumm-dumm-dumm-dummycreated
+
+_date:
+  type: object
+  properties:
+    created_at:
+      type: date
+      example: 2022-08-10 22:22:20
+    updated_at:
+      type: date
+      example: 2022-08-10 22:22:20
+
+_mr_id:
+  type: object
+  properties:
+    medical_record_id: 
+      type: string
+      example: 315271
+
+_main:
+  type: object
+  properties:
+    name: 
+      type: string
+      example: HCT Test
+    sample: 
+      type: string
+      example: K3-EDTA Venous Blood
+    result_url: 
+      type: string
+      example: https://cloudinary.com/api/private/...
+    issue_date:
+      type: date
+      example: 2022-08-10
+    issuer_laboratory:
+      type: string 
+      example: Laboratorium Medik Negeri Wakanda
+
+response:
+  allOf:
+    - $ref: '#/_id'
+    - $ref: '#/_mr_id'
+    - $ref: '#/_main'
+    - $ref: '#/_date'
+
+request:
+  allOf:
+    - $ref: '#/_mr_id'
+    - $ref: '#/_main'
+
+# search:
+#   allOf:
+#     - $ref: '#/_mr_id'
+
+search_result:
+  - $ref: '#/_id'
+  - $ref: '#/_mr_id'
+  - $ref: '#/_main'

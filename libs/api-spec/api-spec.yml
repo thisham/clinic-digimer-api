@@ -1,0 +1,29 @@
+openapi: 3.0.0
+info:
+  title: "API"
+  version: "1.0.0"
+  contact:
+    name: Hamdan Yuwafi
+    email: yuwafi.hamdan365@gmail.com
+tags:
+  - name: Authentication
+    description: Authentication related routes, such as register, verification, login and logout.
+paths:
+  /:
+    get:
+      operationId: getMetadata
+      summary: Get metadata from the root of the API
+      tags: [ 'Metadata' ]
+      responses:
+        '200':
+          description: OK
+  
+  /auth/doctor/signin:
+    $ref: './path-definitions/auth/doctor/signin.yml'
+  /auth/admin/signin:
+    $ref: './path-definitions/auth/admin/signin.yml'
+  /auth/signout:
+    $ref: './path-definitions/auth/signout.yml'
+  
+  /doctors:
+    $ref: './path-definitions/doctors/index.yml'

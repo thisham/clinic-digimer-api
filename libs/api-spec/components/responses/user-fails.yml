@@ -1,0 +1,55 @@
+'400':
+  description: Bad Request
+  content:
+    application/json:
+      schema:
+        type: object
+        properties: 
+          message:
+            type: string
+            example: Bad Request
+          code:
+            type: number
+            example: 400
+
+'401':
+  description: Unauthorized
+  content:
+    application/json:
+      schema:
+        type: object
+        properties: 
+          message:
+            type: string
+            example: Unauthorized
+          code:
+            type: number
+            example: 401
+
+'403':
+  description: Forbidden
+  content:
+    application/json:
+      schema:
+        type: object
+        properties: 
+          message:
+            type: string
+            example: Forbidden
+          code:
+            type: number
+            example: 403
+
+'404':
+  description: Forbidden
+  content:
+    application/json:
+      schema:
+        type: object
+        properties: 
+          message:
+            type: string
+            example: Not Found
+          code:
+            type: number
+            example: 404

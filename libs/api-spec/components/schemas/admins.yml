@@ -1,0 +1,58 @@
+_date:
+  type: object
+  properties:
+    created_at:
+      type: date
+      example: 2022-08-10 22:22:20
+    updated_at:
+      type: date
+      example: 2022-08-10 22:22:20
+
+_id: 
+  type: object
+  properties:
+    id: 
+      type: string
+      example: ad112233-dumm-dumm-dumm-dummycreated
+
+_main: 
+  type: object
+  properties:
+    name:
+      type: string
+      example: dr. Damar Danendra
+    phone:
+      type: string
+      example: 088888239293
+
+_password:
+  type: object
+  properties:
+    password:
+      type: string
+      example: thestrongestpassword
+
+_email:
+  type: object
+  properties:
+    email:
+      type: string
+      example: damardanendra@klinikoke.com
+
+auth:
+  allOf:
+    - $ref: '#/_email'
+    - $ref: '#/_password'
+
+response:
+  allOf: 
+    - $ref: '#/_id'
+    - $ref: '#/_main'
+    - $ref: '#/_email'
+    - $ref: '#/_date'
+
+request:
+  allOf:
+    - $ref: '#/_main'
+    - $ref: '#/_email'
+    - $ref: '#/_password'

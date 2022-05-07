@@ -1,0 +1,22 @@
+_id:
+  type: object 
+  properties:
+    id:
+      type: number
+      example: add11223-dumm-dumm-dumm-dummycreated
+
+_main:
+  type: object
+  properties:
+    name:
+      type: string
+      example: Paracetamol 500 mg Tablet
+
+response:
+  allOf: 
+    - $ref: '#/_id'
+    - $ref: '#/_main'
+
+request:
+  allOf:
+    - $ref: '#/_main'

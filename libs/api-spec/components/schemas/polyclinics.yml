@@ -1,0 +1,22 @@
+_id:
+  type: object 
+  properties:
+    id:
+      type: number
+      example: 1
+
+_main:
+  type: object
+  properties:
+    name:
+      type: string
+      example: General
+
+response:
+  allOf: 
+    - $ref: '#/_id'
+    - $ref: '#/_main'
+
+request:
+  allOf:
+    - $ref: '#/_main'

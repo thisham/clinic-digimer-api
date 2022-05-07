@@ -1,0 +1,31 @@
+post:
+  tags: [ 'Authentication' ]
+  description: auth login.
+
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../../components/index.yml#/components/schemas/admin/auth'
+          
+  responses:
+    '200': 
+      description: OK
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '../../../components/index.yml#/components/responses_no_meta/200'
+              - type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      token: 
+                        type: string
+                        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+    '401':
+      $ref: '../../../components/index.yml#/components/responses/401'
+    '500':
+      $ref: '../../../components/index.yml#/components/responses/500'

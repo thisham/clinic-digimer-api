@@ -1,0 +1,56 @@
+_date:
+  type: object
+  properties:
+    created_at:
+        type: date
+        example: 2022-08-10 22:22:20
+    updated_at:
+      type: date
+      example: 2022-08-10 22:22:20
+
+_id: 
+  type: object
+  properties:
+    id: 
+      type: string
+      example: ad112233-dumm-dumm-dumm-dummycreated
+
+_mr_book:
+  type: object
+  properties:
+    medical_record_book_number:
+      type: string
+      example: 23572
+
+_main: 
+  type: object
+  properties:
+    name:
+      type: string
+      example: Daniel Mulawarman
+    gender:
+      type: string
+      example: Male
+    dob:
+      type: date
+      example: 2001-05-10
+
+request:
+  allOf:
+    - $ref: '#/_main'
+
+# search:
+#   allOf:
+#     - $ref: '#/_mr_book'
+
+search_result:
+  - $ref: '#/_id'
+  - $ref: '#/_mr_book'
+  - $ref: '#/_main'
+
+response:
+  allOf:
+    - $ref: '#/_id'
+    - $ref: '#/_mr_book'
+    - $ref: '#/_main'
+    - $ref: '#/_date'

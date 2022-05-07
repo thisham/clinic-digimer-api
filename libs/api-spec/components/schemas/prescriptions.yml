@@ -1,0 +1,60 @@
+_medicine_id: 
+  type: object 
+  properties:
+    id:
+      type: string
+      example: add11223-dumm-dumm-dumm-dummycreated
+
+_medicine_detail:
+  type: object 
+  properties:
+    name:
+      type: string
+      example: Paracetamol 500 mg Tablet
+
+_medicine_usage:
+  type: object
+  properties:
+    dosage: 
+      type: string
+      example: 3x1
+    quantity:
+      type: number
+      example: 10
+    preparatory:
+      type: string
+      example: pulveris
+
+_prescription_detail:
+  allOf:
+    - $ref: '#/_medicine_id'
+    - $ref: '#/_medicine_detail'
+    - $ref: '#/_medicine_usage'
+
+_date:
+  type: object
+  properties:
+    created_at:
+      type: date
+      example: 2022-08-10 22:22:20
+    updated_at:
+      type: date
+      example: 2022-08-10 22:22:20
+
+response:
+  allOf:
+    - type: object 
+      properties: 
+        medical_record_id:
+          type: number
+          example: add11223-dumm-dumm-dumm-dummycreated
+    - type: array
+      items: 
+        $ref: '#/_prescription_detail'
+    - $ref: '#/_date'
+
+request:
+  allOf:
+    - type: array
+      items: 
+        $ref: '#/_prescription_detail'
