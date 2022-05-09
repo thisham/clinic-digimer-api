@@ -10,26 +10,26 @@ type repository struct {
 	DB *gorm.DB
 }
 
-// CountDataByID implements medical_record_categories.Repository
+// CountDataByID implements medical_record_categories.Repositories
 func (repo *repository) CountDataByID(id int) (count int) {
 	var medical_record_category MedicalRecordCategory
 	return int(repo.DB.Where("ID = ?", id).Find(&medical_record_category).RowsAffected)
 }
 
-// DeleteByID implements medical_record_categories.Repository
+// DeleteByID implements medical_record_categories.Repositories
 func (repo *repository) DeleteByID(id int) (err error) {
 	err = repo.DB.Where("ID = ?", id).Delete(new(MedicalRecordCategory)).Error
 	return err
 }
 
-// InsertData implements medical_record_categories.Repository
+// InsertData implements medical_record_categories.Repositories
 func (repo *repository) InsertData(domain medical_record_categories.Domain) (err error) {
 	record := mapToRecord(domain)
 	err = repo.DB.Create(&record).Error
 	return
 }
 
-// SelectAllData implements medical_record_categories.Repository
+// SelectAllData implements medical_record_categories.Repositories
 func (repo *repository) SelectAllData() (data []medical_record_categories.Domain, err error) {
 	var medical_record_categories []MedicalRecordCategory
 	if err = repo.DB.Find(&medical_record_categories).Error; err != nil {
@@ -39,7 +39,7 @@ func (repo *repository) SelectAllData() (data []medical_record_categories.Domain
 	return mapToDomainBatch(medical_record_categories), nil
 }
 
-// SelectDataByID implements medical_record_categories.Repository
+// SelectDataByID implements medical_record_categories.Repositories
 func (repo *repository) SelectDataByID(id int) (selected medical_record_categories.Domain, err error) {
 	var medical_record_category MedicalRecordCategory
 	if err = repo.DB.First(&medical_record_category, id).Error; err != nil {
@@ -49,7 +49,7 @@ func (repo *repository) SelectDataByID(id int) (selected medical_record_categori
 	return mapToDomain(medical_record_category), nil
 }
 
-// UpdateByID implements medical_record_categories.Repository
+// UpdateByID implements medical_record_categories.Repositories
 func (repo *repository) UpdateByID(id int, domain medical_record_categories.Domain) (err error) {
 	var medical_record_category MedicalRecordCategory
 	record := mapToRecord(domain)
@@ -57,6 +57,6 @@ func (repo *repository) UpdateByID(id int, domain medical_record_categories.Doma
 	return
 }
 
-func NewMySQLRepository(DB *gorm.DB) medical_record_categories.Repository {
+func NewMySQLRepository(DB *gorm.DB) medical_record_categories.Repositories {
 	return &repository{DB}
 }

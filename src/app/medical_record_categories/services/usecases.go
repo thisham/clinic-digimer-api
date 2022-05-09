@@ -3,7 +3,7 @@ package services
 import "digimer-api/src/app/medical_record_categories"
 
 type usecase struct {
-	repo medical_record_categories.Repository
+	repo medical_record_categories.Repositories
 }
 
 // CountMedicalRecordCategoryByID implements medical_record_categories.Services
@@ -41,6 +41,6 @@ func (uc *usecase) RemoveMedicalRecordCategoryByID(id int) (err error) {
 	return
 }
 
-func NewService(repo medical_record_categories.Repository) medical_record_categories.Services {
+func NewService(repo medical_record_categories.Repositories) medical_record_categories.Services {
 	return &usecase{repo}
 }
