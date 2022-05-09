@@ -31,5 +31,12 @@ func New() *echo.Echo {
 	api.PUT("/medicines/:id", apiFactory.Medicine.AmendMedicineByIDHandler)
 	api.DELETE("/medicines/:id", apiFactory.Medicine.RemoveMedicineByIDHandler)
 
+	// medicines
+	api.GET("/medical-record-categories", apiFactory.MedicalRecordCategory.ShowAllMedicalRecordCategoriesHandler)
+	api.GET("/medical-record-categories/:id", apiFactory.MedicalRecordCategory.ShowMedicalRecordCategoryByIDHandler)
+	api.POST("/medical-record-categories", apiFactory.MedicalRecordCategory.CreateMedicalRecordCategoryHandler)
+	api.PUT("/medical-record-categories/:id", apiFactory.MedicalRecordCategory.AmendMedicalRecordCategoryByIDHandler)
+	api.DELETE("/medical-record-categories/:id", apiFactory.MedicalRecordCategory.RemoveMedicalRecordCategoryByIDHandler)
+
 	return route
 }
