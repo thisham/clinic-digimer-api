@@ -81,14 +81,14 @@ func TestGetPolyclinicByID(t *testing.T) {
 
 func TestCreatePolyclinic(t *testing.T) {
 	t.Run("success create data", func(t *testing.T) {
-		mockRepo.On("InsertData", sampleDomain).Return(sampleDomain.ID, nil).Once()
+		mockRepo.On("InsertData", sampleDomain).Return(nil).Once()
 		err := services.CreatePolyclinic(sampleDomain)
 
 		assert.Nil(t, err)
 	})
 
 	t.Run("cannot connect database", func(t *testing.T) {
-		mockRepo.On("InsertData", sampleDomain).Return(0, errors.New(errormessages.CannotConnectDatabase)).Once()
+		mockRepo.On("InsertData", sampleDomain).Return(errors.New(errormessages.CannotConnectDatabase)).Once()
 		err := services.CreatePolyclinic(sampleDomain)
 
 		assert.NotNil(t, err)
