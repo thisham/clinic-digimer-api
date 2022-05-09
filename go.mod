@@ -9,6 +9,7 @@ require (
 )
 
 require (
+	github.com/google/uuid v1.1.2
 	github.com/spf13/viper v1.11.0
 	gorm.io/driver/mysql v1.3.3
 )
