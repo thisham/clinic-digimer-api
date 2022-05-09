@@ -27,6 +27,20 @@ func (_m *Services) AmendPolyclinicByID(id int, polyclinic polyclinics.Domain) e
 	return r0
 }
 
+// CountPolyclinicByID provides a mock function with given fields: id
+func (_m *Services) CountPolyclinicByID(id int) int {
+	ret := _m.Called(id)
+
+	var r0 int
+	if rf, ok := ret.Get(0).(func(int) int); ok {
+		r0 = rf(id)
+	} else {
+		r0 = ret.Get(0).(int)
+	}
+
+	return r0
+}
+
 // CreatePolyclinic provides a mock function with given fields: domain
 func (_m *Services) CreatePolyclinic(domain polyclinics.Domain) error {
 	ret := _m.Called(domain)

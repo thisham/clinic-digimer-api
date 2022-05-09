@@ -13,6 +13,20 @@ type Repository struct {
 	mock.Mock
 }
 
+// CountDataByID provides a mock function with given fields: id
+func (_m *Repository) CountDataByID(id int) int {
+	ret := _m.Called(id)
+
+	var r0 int
+	if rf, ok := ret.Get(0).(func(int) int); ok {
+		r0 = rf(id)
+	} else {
+		r0 = ret.Get(0).(int)
+	}
+
+	return r0
+}
+
 // DeleteByID provides a mock function with given fields: id
 func (_m *Repository) DeleteByID(id int) error {
 	ret := _m.Called(id)

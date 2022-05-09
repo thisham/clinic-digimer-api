@@ -10,9 +10,14 @@ type repository struct {
 	DB *gorm.DB
 }
 
+// CountDataByID implements polyclinics.Repository
+func (repo *repository) CountDataByID(id int) (count int) {
+	var polyclinic Polyclinic
+	return int(repo.DB.Where("ID = ?", id).Find(&polyclinic).RowsAffected)
+}
+
 // DeleteByID implements polyclinics.Repository
 func (repo *repository) DeleteByID(id int) (err error) {
-	// var polyclinic Polyclinic
 	err = repo.DB.Where("ID = ?", id).Delete(new(Polyclinic)).Error
 	return err
 }

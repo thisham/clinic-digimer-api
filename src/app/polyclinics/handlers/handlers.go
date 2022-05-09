@@ -7,6 +7,7 @@ import (
 	"digimer-api/src/utils"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/labstack/echo/v4"
 )
@@ -19,6 +20,7 @@ func NewHandler(srv polyclinics.Services) *Handler {
 	return &Handler{srv}
 }
 
+// onCreate
 func (h *Handler) CreatePolyclinicHandler(ec echo.Context) error {
 	var polyclinicRequest request.Request
 
@@ -36,6 +38,7 @@ func (h *Handler) CreatePolyclinicHandler(ec echo.Context) error {
 	return utils.CreateEchoResponse(ec, status, http.StatusText(status), nil)
 }
 
+// onShowAll
 func (h *Handler) ShowAllPolyclinicsHandler(ec echo.Context) error {
 	data, err := h.services.GetAllPolyclinics()
 
@@ -48,12 +51,18 @@ func (h *Handler) ShowAllPolyclinicsHandler(ec echo.Context) error {
 	return utils.CreateEchoResponse(ec, status, http.StatusText(status), response.MapToBatchResponse(data))
 }
 
+// onShowOne
 func (h *Handler) ShowPolyclinicByIDHandler(ec echo.Context) error {
 	id, _ := strconv.Atoi(ec.Param("id"))
 	data, err := h.services.GetPolyclinicByID(id)
 
 	if err != nil {
-		status := http.StatusNotFound
+		if strings.Contains(err.Error(), "not found") {
+			status := http.StatusNotFound
+			return utils.CreateEchoResponse(ec, status, http.StatusText(status), err)
+		}
+
+		status := http.StatusInternalServerError
 		return utils.CreateEchoResponse(ec, status, http.StatusText(status), err)
 	}
 
@@ -61,6 +70,7 @@ func (h *Handler) ShowPolyclinicByIDHandler(ec echo.Context) error {
 	return utils.CreateEchoResponse(ec, status, http.StatusText(status), data)
 }
 
+// onUpdate
 func (h *Handler) AmendPolyclinicByIDHandler(ec echo.Context) error {
 	id, _ := strconv.Atoi(ec.Param("id"))
 	var polyclinicRequest request.Request
@@ -68,6 +78,11 @@ func (h *Handler) AmendPolyclinicByIDHandler(ec echo.Context) error {
 	if err := ec.Bind(&polyclinicRequest); err != nil {
 		status := http.StatusBadRequest
 		return utils.CreateEchoResponse(ec, status, http.StatusText(status), err)
+	}
+
+	if count := h.services.CountPolyclinicByID(id); count == 0 {
+		status := http.StatusNotFound
+		return utils.CreateEchoResponse(ec, status, http.StatusText(status), nil)
 	}
 
 	if err := h.services.AmendPolyclinicByID(id, polyclinicRequest.MapToDomain()); err != nil {
@@ -79,8 +94,14 @@ func (h *Handler) AmendPolyclinicByIDHandler(ec echo.Context) error {
 	return utils.CreateEchoResponse(ec, status, http.StatusText(status), nil)
 }
 
+// onDelete
 func (h *Handler) RemovePolyclinicByIDHandler(ec echo.Context) error {
 	id, _ := strconv.Atoi(ec.Param("id"))
+
+	if count := h.services.CountPolyclinicByID(id); count == 0 {
+		status := http.StatusNotFound
+		return utils.CreateEchoResponse(ec, status, http.StatusText(status), nil)
+	}
 
 	if err := h.services.RemovePolyclinicByID(id); err != nil {
 		status := http.StatusInternalServerError

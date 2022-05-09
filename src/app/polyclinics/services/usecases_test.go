@@ -79,6 +79,22 @@ func TestGetPolyclinicByID(t *testing.T) {
 	})
 }
 
+func TestCountPolyclinicByID(t *testing.T) {
+	t.Run("success got requested data", func(t *testing.T) {
+		mockRepo.On("CountDataByID", sampleDomain.ID).Return(1).Once()
+		result := services.CountPolyclinicByID(sampleDomain.ID)
+
+		assert.Equal(t, 1, result)
+	})
+
+	t.Run("cannot connect database or data not found", func(t *testing.T) {
+		mockRepo.On("CountDataByID", sampleDomain.ID).Return(0).Once()
+		result := services.CountPolyclinicByID(sampleDomain.ID)
+
+		assert.Equal(t, 0, result)
+	})
+}
+
 func TestCreatePolyclinic(t *testing.T) {
 	t.Run("success create data", func(t *testing.T) {
 		mockRepo.On("InsertData", sampleDomain).Return(nil).Once()

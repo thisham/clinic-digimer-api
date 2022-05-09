@@ -6,6 +6,11 @@ type usecase struct {
 	repo polyclinics.Repository
 }
 
+// CountPolyclinicByID implements polyclinics.Services
+func (uc *usecase) CountPolyclinicByID(id int) (count int) {
+	return uc.repo.CountDataByID(id)
+}
+
 // AmendPolyclinicByID implements polyclinics.Services
 func (uc *usecase) AmendPolyclinicByID(id int, polyclinic polyclinics.Domain) (err error) {
 	err = uc.repo.UpdateByID(id, polyclinic)
