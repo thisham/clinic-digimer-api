@@ -49,9 +49,9 @@ jobs:
       - name: Invoking go vet and binaries generation
         run: |
           go vet ./...
-          GOOS=darwin GOARCH=amd64 go build -o=.github/workflows/asyncapi-parser.darwin.amd64 ./cmd/api-parser/main.go
-          GOOS=linux GOARCH=amd64 go build -o=.github/workflows/asyncapi-parser.linux.amd64 ./cmd/api-parser/main.go
-          GOOS=windows GOARCH=amd64 go build -o=.github/workflows/asyncapi-parser.windows.amd64.exe ./cmd/api-parser/main.go
+          GOOS=darwin GOARCH=amd64 go build -o=.github/workflows/digimer-api.darwin.amd64 ./main.go
+          GOOS=linux GOARCH=amd64 go build -o=.github/workflows/digimer-api.linux.amd64 ./main.go
+          GOOS=windows GOARCH=amd64 go build -o=.github/workflows/digimer-api.windows.amd64.exe ./main.go
       - name: Setup Node.js
         uses: actions/setup-node@v3.1.1
         with:
