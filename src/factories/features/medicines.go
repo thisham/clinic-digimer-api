@@ -1,4 +1,4 @@
-package medicines
+package features
 
 import (
 	"digimer-api/src/app/medicines/handlers"

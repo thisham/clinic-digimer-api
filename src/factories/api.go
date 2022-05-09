@@ -4,8 +4,7 @@ import (
 	medicinesHandler "digimer-api/src/app/medicines/handlers"
 	polyclinicsHandler "digimer-api/src/app/polyclinics/handlers"
 	"digimer-api/src/database"
-	"digimer-api/src/factories/features/medicines"
-	"digimer-api/src/factories/features/polyclinics"
+	"digimer-api/src/factories/features"
 )
 
 type apiHandler struct {
@@ -17,7 +16,7 @@ func ApiInit() apiHandler {
 	conn := new(database.DBConf).InitDB()
 
 	return apiHandler{
-		Polyclinic: polyclinics.PolyclinicFactory(conn.DB),
-		Medicine:   medicines.MedicineFactory(conn.DB),
+		Polyclinic: features.PolyclinicFactory(conn.DB),
+		Medicine:   features.MedicineFactory(conn.DB),
 	}
 }
