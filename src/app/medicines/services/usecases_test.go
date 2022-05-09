@@ -12,7 +12,7 @@ import (
 )
 
 var (
-	mockRepo         mocks.Repository
+	mockRepo         mocks.Repositories
 	services         medicines.Services
 	sampleDomainList []medicines.Domain
 	sampleDomain     medicines.Domain

@@ -14,7 +14,7 @@ type Services interface {
 	RemoveMedicineByID(id int) (err error)
 }
 
-type Repository interface {
+type Repositories interface {
 	SelectAllData() (data []Domain, err error)
 	SelectDataByID(id int) (selected Domain, err error)
 	CountDataByID(id int) (count int)
