@@ -63,10 +63,6 @@ jobs:
         working-directory: ./.github/workflows
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          GIT_AUTHOR_NAME: Hamdan Yuwafi
-          GIT_AUTHOR_EMAIL: yuwafi.hamdan365@gmail.com
-          GIT_COMMITTER_NAME: Hamdan Yuwafi
-          GIT_COMMITTER_EMAIL: yuwafi.hamdan365@gmail.com
         run: npx semantic-release
 
   # docker-compose:
