@@ -24,5 +24,12 @@ func New() *echo.Echo {
 	api.PUT("/polyclinics/:id", apiFactory.Polyclinic.AmendPolyclinicByIDHandler)
 	api.DELETE("/polyclinics/:id", apiFactory.Polyclinic.RemovePolyclinicByIDHandler)
 
+	// medicines
+	api.GET("/medicines", apiFactory.Medicine.ShowAllMedicinesHandler)
+	api.GET("/medicines/:id", apiFactory.Medicine.ShowMedicineByIDHandler)
+	api.POST("/medicines", apiFactory.Medicine.CreateMedicineHandler)
+	api.PUT("/medicines/:id", apiFactory.Medicine.AmendMedicineByIDHandler)
+	api.DELETE("/medicines/:id", apiFactory.Medicine.RemoveMedicineByIDHandler)
+
 	return route
 }
