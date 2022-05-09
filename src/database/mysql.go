@@ -1,6 +1,7 @@
 package database
 
 import (
+	medicalRecordCategories "digimer-api/src/app/medical_record_categories/repositories"
 	medicines "digimer-api/src/app/medicines/repositories"
 	polyclinics "digimer-api/src/app/polyclinics/repositories"
 	"digimer-api/src/configs"
@@ -20,9 +21,9 @@ func (DB *DBConf) InitDB() *DBConf {
 }
 
 func (DB *DBConf) Migrate() {
-	DB.AutoMigrate(&polyclinics.Polyclinic{}, &medicines.Medicine{})
+	DB.AutoMigrate(&polyclinics.Polyclinic{}, &medicines.Medicine{}, &medicalRecordCategories.MedicalRecordCategory{})
 }
 
 func (DB *DBConf) Demigrate() {
-	DB.Migrator().DropTable(&polyclinics.Polyclinic{}, &medicines.Medicine{})
+	DB.Migrator().DropTable(&polyclinics.Polyclinic{}, &medicines.Medicine{}, &medicalRecordCategories.MedicalRecordCategory{})
 }
