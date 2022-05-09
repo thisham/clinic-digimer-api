@@ -1,6 +1,13 @@
 package main
 
-import "digimer-api/src/routes"
+import (
+	"digimer-api/src/database"
+	"digimer-api/src/routes"
+)
+
+func init() {
+	new(database.DBConf).InitDB().Migrate()
+}
 
 func main() {
 	app := routes.New()
