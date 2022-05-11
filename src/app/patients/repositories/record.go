@@ -54,7 +54,17 @@ func mapToDomainBatch(records []Patient) []patients.Domain {
 	return domains
 }
 
-func mapToRecord(domain patients.Domain) Patient {
+func mapToNewRecord(domain patients.Domain) Patient {
+	return Patient{
+		ID:                      domain.ID,
+		MedicalRecordBookNumber: domain.MRBookNumber,
+		Name:                    domain.Name,
+		Gender:                  genderType(domain.Gender),
+		BirthDate:               domain.BirthDate,
+	}
+}
+
+func mapToExistingRecord(domain patients.Domain) Patient {
 	return Patient{
 		ID:        domain.ID,
 		Name:      domain.Name,

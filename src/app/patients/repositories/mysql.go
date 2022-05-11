@@ -22,7 +22,7 @@ func (repo *repository) DeleteByID(id string) (err error) {
 
 // InsertData implements patients.Repositories
 func (repo *repository) InsertData(domain patients.Domain) (err error) {
-	record := mapToRecord(domain)
+	record := mapToNewRecord(domain)
 	return repo.DB.Create(&record).Error
 }
 
@@ -65,7 +65,7 @@ func (repo *repository) SelectDataByMRBookNumber(mrBookNumber string) (selected 
 
 // UpdateByID implements patients.Repositories
 func (repo *repository) UpdateByID(id string, domain patients.Domain) (err error) {
-	record := mapToRecord(domain)
+	record := mapToExistingRecord(domain)
 	return repo.DB.Model(new(Patient)).Where("ID = ?", id).Updates(&record).Error
 }
 
