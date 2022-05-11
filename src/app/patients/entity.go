@@ -45,4 +45,7 @@ type Repositories interface {
 
 	// count
 	CountDataByID(id string) (count int)
+
+	// utils
+	LookupLatestMRBookNumber() (mrBookNumber string)
 }

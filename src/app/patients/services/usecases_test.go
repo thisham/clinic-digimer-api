@@ -28,7 +28,7 @@ func TestMain(m *testing.M) {
 	birthdate, _ := time.Parse("2006-01-02", "2000-05-10")
 	sampleDomain = patients.Domain{
 		ID:           sampleUUID,
-		MRBookNumber: "223198",
+		MRBookNumber: "00223198",
 		Name:         "Yehezkiel Saragih",
 		Gender:       "Male",
 		BirthDate:    birthdate,
@@ -121,6 +121,7 @@ func TestGetPatientByMedicalRecordBookNumber(t *testing.T) {
 
 func TestCreatePatient(t *testing.T) {
 	t.Run("should successfully added data", func(t *testing.T) {
+		mockRepo.On("LookupLatestMRBookNumber").Return("00223197").Once()
 		mockRepo.On("InsertData", sampleInput).Return(sampleDomain.ID.String(), nil).Once()
 		uid, err := services.CreatePatient(sampleInput)
 
@@ -129,6 +130,7 @@ func TestCreatePatient(t *testing.T) {
 	})
 
 	t.Run("should got database error", func(t *testing.T) {
+		mockRepo.On("LookupLatestMRBookNumber").Return("00223197").Once()
 		mockRepo.On("InsertData", sampleInput).Return(sampleDomain.ID.String(), errors.New(errormessages.CannotConnectDatabase)).Once()
 		_, err := services.CreatePatient(sampleInput)
 

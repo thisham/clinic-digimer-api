@@ -55,6 +55,20 @@ func (_m *Repositories) InsertData(domain patients.Domain) error {
 	return r0
 }
 
+// LookupLatestMRBookNumber provides a mock function with given fields:
+func (_m *Repositories) LookupLatestMRBookNumber() string {
+	ret := _m.Called()
+
+	var r0 string
+	if rf, ok := ret.Get(0).(func() string); ok {
+		r0 = rf()
+	} else {
+		r0 = ret.Get(0).(string)
+	}
+
+	return r0
+}
+
 // SelectAllData provides a mock function with given fields:
 func (_m *Repositories) SelectAllData() ([]patients.Domain, error) {
 	ret := _m.Called()
