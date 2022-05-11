@@ -6,8 +6,6 @@ import (
 	"errors"
 	"fmt"
 	"strconv"
-
-	"github.com/google/uuid"
 )
 
 type usecase struct {
@@ -34,7 +32,6 @@ func (uc *usecase) CreatePatient(domain patients.Domain) (id string, err error) 
 	// MR Book Number Generate
 	latestMRBook, _ := strconv.Atoi(uc.repo.LookupLatestMRBookNumber())
 
-	domain.ID = uuid.New()
 	domain.MRBookNumber = fmt.Sprintf("%08d", latestMRBook+1)
 	return domain.ID.String(), uc.repo.InsertData(domain)
 }
