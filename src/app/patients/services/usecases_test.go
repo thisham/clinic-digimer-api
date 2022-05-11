@@ -5,7 +5,6 @@ import (
 	"digimer-api/src/app/patients/mocks"
 	errormessages "digimer-api/src/constants/error_messages"
 	"errors"
-	"log"
 	"os"
 	"testing"
 	"time"
@@ -52,8 +51,6 @@ func TestMain(m *testing.M) {
 		BirthDate: sampleDomain.BirthDate,
 	}
 	sampleDomainList = []patients.Domain{sampleDomain}
-
-	log.Println("sdf", sampleUUID.String())
 
 	os.Exit(m.Run())
 }
