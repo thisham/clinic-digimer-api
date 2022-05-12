@@ -56,7 +56,7 @@ func mapToDomainBatch(records []Patient) []patients.Domain {
 
 func mapToNewRecord(domain patients.Domain) Patient {
 	return Patient{
-		ID:                      uuid.MustParse(uuid.New().String()),
+		ID:                      uuid.Must(uuid.NewRandom()),
 		MedicalRecordBookNumber: domain.MRBookNumber,
 		Name:                    domain.Name,
 		Gender:                  genderType(domain.Gender),

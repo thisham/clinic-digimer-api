@@ -130,7 +130,7 @@ func TestGetPatientByMedicalRecordBookNumber(t *testing.T) {
 func TestCreatePatient(t *testing.T) {
 	t.Run("should successfully added data", func(t *testing.T) {
 		mockRepo.On("LookupLatestMRBookNumber").Return("00223197").Once()
-		mockRepo.On("InsertData", sampleCreateInput).Return(nil).Once()
+		mockRepo.On("InsertData", sampleCreateInput).Return(sampleUUID.String(), nil).Once()
 		uid, err := services.CreatePatient(sampleCreateInput)
 
 		assert.Nil(t, err)
@@ -139,7 +139,7 @@ func TestCreatePatient(t *testing.T) {
 
 	t.Run("should got database error", func(t *testing.T) {
 		mockRepo.On("LookupLatestMRBookNumber").Return("00223197").Once()
-		mockRepo.On("InsertData", sampleCreateInput).Return(errors.New(errormessages.CannotConnectDatabase)).Once()
+		mockRepo.On("InsertData", sampleCreateInput).Return(uuid.Nil.String(), errors.New(errormessages.CannotConnectDatabase)).Once()
 		_, err := services.CreatePatient(sampleCreateInput)
 
 		assert.NotNil(t, err)

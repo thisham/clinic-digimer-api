@@ -33,7 +33,7 @@ func (uc *usecase) CreatePatient(domain patients.Domain) (id string, err error) 
 	latestMRBook, _ := strconv.Atoi(uc.repo.LookupLatestMRBookNumber())
 
 	domain.MRBookNumber = fmt.Sprintf("%08d", latestMRBook+1)
-	return domain.ID.String(), uc.repo.InsertData(domain)
+	return uc.repo.InsertData(domain)
 }
 
 // GetAllPatients implements patients.Services

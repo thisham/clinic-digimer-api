@@ -21,9 +21,9 @@ func (repo *repository) DeleteByID(id string) (err error) {
 }
 
 // InsertData implements patients.Repositories
-func (repo *repository) InsertData(domain patients.Domain) (err error) {
+func (repo *repository) InsertData(domain patients.Domain) (id string, err error) {
 	record := mapToNewRecord(domain)
-	return repo.DB.Create(&record).Error
+	return record.ID.String(), repo.DB.Create(&record).Error
 }
 
 // LookupLatestMRBookNumber implements patients.Repositories
