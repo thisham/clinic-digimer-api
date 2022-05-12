@@ -1,6 +1,7 @@
 package errormessages
 
 const (
-	CannotConnectDatabase = "Cannot connect database."
+	CannotConnectDatabase = "can't connect database"
 	FoundNoData           = "record not found"
+	PasswordNotMatch      = "password not match"
 )
