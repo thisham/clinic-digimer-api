@@ -29,7 +29,7 @@ type Patient struct {
 	ID                      uuid.UUID
 	MedicalRecordBookNumber string `gorm:"unique"`
 	Name                    string
-	Gender                  genderType `gorm:"sql:gender_type"`
+	Gender                  genderType `gorm:"type:enum('Male', 'Female')"`
 	BirthDate               time.Time
 }
 
