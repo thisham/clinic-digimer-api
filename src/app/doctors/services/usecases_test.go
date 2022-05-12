@@ -3,9 +3,11 @@ package services
 import (
 	"digimer-api/src/app/doctors"
 	"digimer-api/src/app/doctors/mocks"
-	"digimer-api/src/app/patients"
 	errormessages "digimer-api/src/constants/error_messages"
+	"digimer-api/src/utils"
 	"errors"
+	"log"
+	"os"
 	"testing"
 	"time"
 
@@ -68,10 +70,14 @@ func TestMain(m *testing.M) {
 		Password: samplePassword,
 	}
 
+	sampleDomainList = []doctors.Domain{sampleDomain}
+
 	sampleLoginInput = doctors.Domain{
 		Email:    "damardanendra@example.com",
 		Password: samplePassword,
 	}
+
+	os.Exit(m.Run())
 }
 
 func TestAmendDoctorByID(t *testing.T) {
@@ -102,7 +108,7 @@ func TestAmendDoctorByID(t *testing.T) {
 func TestAmendPasswordByDoctorID(t *testing.T) {
 	t.Run("should successfully update the password", func(t *testing.T) {
 		mockRepo.On("CountDataByID", sampleUUID.String()).Return(1).Once()
-		mockRepo.On("UpdateByID", sampleUpdatePasswordInput).Return(nil).Once()
+		mockRepo.On("UpdateByID", sampleUUID.String(), doctors.Domain{Password: samplePassword}).Return(nil).Once()
 		err := services.AmendPasswordByDoctorID(sampleUUID.String(), samplePassword, samplePassword)
 
 		assert.Nil(t, err)
@@ -117,7 +123,7 @@ func TestAmendPasswordByDoctorID(t *testing.T) {
 
 	t.Run("should got database error", func(t *testing.T) {
 		mockRepo.On("CountDataByID", sampleUUID.String()).Return(1).Once()
-		mockRepo.On("UpdateByID", sampleUpdatePasswordInput).Return(errors.New(errormessages.CannotConnectDatabase))
+		mockRepo.On("UpdateByID", sampleUUID.String(), sampleUpdatePasswordInput).Return(errors.New(errormessages.CannotConnectDatabase))
 		err := services.AmendPasswordByDoctorID(sampleUUID.String(), samplePassword, samplePassword)
 
 		assert.NotNil(t, err)
@@ -141,18 +147,21 @@ func TestAttemptDoctorLogin(t *testing.T) {
 	})
 
 	t.Run("should return error while password did not match", func(t *testing.T) {
-		mockRepo.On("SelectDataByEmail", sampleDomain.Email).Return(sampleDomain, nil).Once()
+		domainWithOtherPassword := sampleDomain
+		domainWithOtherPassword.Password, _ = utils.CreateHash("differentpassword")
+		log.Println(domainWithOtherPassword.Password)
+		mockRepo.On("SelectDataByEmail", sampleDomain.Email).Return(domainWithOtherPassword, nil).Once()
 		token, err := services.AttemptDoctorLogin(sampleDomain.Email, samplePassword)
 
-		assert.Nil(t, token)
+		assert.Equal(t, "", token)
 		assert.NotNil(t, err)
 	})
 
 	t.Run("should got email not registered error", func(t *testing.T) {
-		mockRepo.On("SelectDataByEmail", sampleDomain.Email).Return(patients.Domain{}, errors.New(errormessages.FoundNoData)).Once()
+		mockRepo.On("SelectDataByEmail", sampleDomain.Email).Return(doctors.Domain{}, errors.New(errormessages.FoundNoData)).Once()
 		token, err := services.AttemptDoctorLogin(sampleDomain.Email, samplePassword)
 
-		assert.Nil(t, token)
+		assert.Equal(t, "", token)
 		assert.NotNil(t, err)
 	})
 }
@@ -175,7 +184,7 @@ func TestCountDoctorByID(t *testing.T) {
 
 func TestCreateDoctor(t *testing.T) {
 	t.Run("should successfully added doctor data", func(t *testing.T) {
-		mockRepo.On("InsertData", sampleCreateInput).Return(nil).Once()
+		mockRepo.On("InsertData", sampleCreateInput).Return(sampleUUID.String(), nil).Once()
 		uid, err := services.CreateDoctor(sampleCreateInput)
 
 		assert.Nil(t, err)
@@ -183,7 +192,7 @@ func TestCreateDoctor(t *testing.T) {
 	})
 
 	t.Run("should got database error", func(t *testing.T) {
-		mockRepo.On("InsertData", sampleCreateInput).Return(errors.New(errormessages.CannotConnectDatabase)).Once()
+		mockRepo.On("InsertData", sampleCreateInput).Return(sampleUUID.String(), errors.New(errormessages.CannotConnectDatabase)).Once()
 		_, err := services.CreateDoctor(sampleCreateInput)
 
 		assert.NotNil(t, err)
@@ -217,14 +226,14 @@ func TestGetDoctorByID(t *testing.T) {
 	})
 
 	t.Run("should got database error", func(t *testing.T) {
-		mockRepo.On("SelectDataByID", sampleUUID.String()).Return(patients.Domain{}, errors.New(errormessages.CannotConnectDatabase)).Once()
+		mockRepo.On("SelectDataByID", sampleUUID.String()).Return(doctors.Domain{}, errors.New(errormessages.CannotConnectDatabase)).Once()
 		_, err := services.GetDoctorByID(sampleUUID.String())
 
 		assert.NotNil(t, err)
 	})
 
 	t.Run("should got error data not found", func(t *testing.T) {
-		mockRepo.On("SelectDataByID", sampleUUID.String()).Return(patients.Domain{}, errors.New(errormessages.FoundNoData)).Once()
+		mockRepo.On("SelectDataByID", sampleUUID.String()).Return(doctors.Domain{}, errors.New(errormessages.FoundNoData)).Once()
 		_, err := services.GetDoctorByID(sampleUUID.String())
 
 		assert.NotNil(t, err)

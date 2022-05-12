@@ -50,7 +50,7 @@ type Services interface {
 type Repositories interface {
 	SelectAllData() (data []Domain, err error)
 	SelectDataByID(id string) (selected Domain, err error)
-	InsertData(domain Domain) (err error)
+	InsertData(domain Domain) (id string, err error)
 	UpdateByID(id string, domain Domain) (err error)
 	DeleteByID(id string) (err error)
 
