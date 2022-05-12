@@ -6,7 +6,6 @@ import (
 	errormessages "digimer-api/src/constants/error_messages"
 	"digimer-api/src/utils"
 	"errors"
-	"log"
 	"os"
 	"testing"
 	"time"
@@ -139,7 +138,9 @@ func TestAmendPasswordByDoctorID(t *testing.T) {
 
 func TestAttemptDoctorLogin(t *testing.T) {
 	t.Run("should got auth token", func(t *testing.T) {
-		mockRepo.On("SelectDataByEmail", sampleDomain.Email).Return(sampleDomain, nil).Once()
+		localDomain := sampleDomain
+		localDomain.Password, _ = utils.CreateHash(samplePassword)
+		mockRepo.On("SelectDataByEmail", sampleDomain.Email).Return(localDomain, nil).Once()
 		token, err := services.AttemptDoctorLogin(sampleDomain.Email, samplePassword)
 
 		assert.Nil(t, err)
@@ -149,7 +150,6 @@ func TestAttemptDoctorLogin(t *testing.T) {
 	t.Run("should return error while password did not match", func(t *testing.T) {
 		domainWithOtherPassword := sampleDomain
 		domainWithOtherPassword.Password, _ = utils.CreateHash("differentpassword")
-		log.Println(domainWithOtherPassword.Password)
 		mockRepo.On("SelectDataByEmail", sampleDomain.Email).Return(domainWithOtherPassword, nil).Once()
 		token, err := services.AttemptDoctorLogin(sampleDomain.Email, samplePassword)
 
