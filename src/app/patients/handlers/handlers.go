@@ -36,7 +36,7 @@ func (h *Handler) CreatePatientHandler(ec echo.Context) error {
 
 	status := http.StatusCreated
 	return utils.CreateEchoResponse(ec, status, http.StatusText(status), map[string]string{
-		"uid": uid,
+		"id": uid,
 	})
 }
 
