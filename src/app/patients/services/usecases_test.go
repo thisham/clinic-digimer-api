@@ -131,10 +131,10 @@ func TestCreatePatient(t *testing.T) {
 	t.Run("should successfully added data", func(t *testing.T) {
 		mockRepo.On("LookupLatestMRBookNumber").Return("00223197").Once()
 		mockRepo.On("InsertData", sampleCreateInput).Return(sampleUUID.String(), nil).Once()
-		uid, err := services.CreatePatient(sampleCreateInput)
+		id, err := services.CreatePatient(sampleCreateInput)
 
 		assert.Nil(t, err)
-		assert.NotNil(t, uid)
+		assert.NotNil(t, id)
 	})
 
 	t.Run("should got database error", func(t *testing.T) {

@@ -17,7 +17,7 @@ func (repo *repository) CountDataByID(id string) (count int) {
 
 // DeleteByID implements patients.Repositories
 func (repo *repository) DeleteByID(id string) (err error) {
-	return repo.DB.Where("ID = ?", id).Find(new(Patient)).Error
+	return repo.DB.Where("ID = ?", id).Delete(new(Patient)).Error
 }
 
 // InsertData implements patients.Repositories

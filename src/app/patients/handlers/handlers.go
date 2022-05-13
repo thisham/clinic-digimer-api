@@ -28,7 +28,7 @@ func (h *Handler) CreatePatientHandler(ec echo.Context) error {
 		return utils.CreateEchoResponse(ec, status, http.StatusText(status), err.Error())
 	}
 
-	uid, err := h.services.CreatePatient(patientRequest.MapToDomain())
+	id, err := h.services.CreatePatient(patientRequest.MapToDomain())
 	if err != nil {
 		status := http.StatusInternalServerError
 		return utils.CreateEchoResponse(ec, status, http.StatusText(status), err.Error())
@@ -36,7 +36,7 @@ func (h *Handler) CreatePatientHandler(ec echo.Context) error {
 
 	status := http.StatusCreated
 	return utils.CreateEchoResponse(ec, status, http.StatusText(status), map[string]string{
-		"id": uid,
+		"id": id,
 	})
 }
 
