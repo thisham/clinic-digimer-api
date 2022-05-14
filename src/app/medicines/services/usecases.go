@@ -3,7 +3,7 @@ package services
 import "digimer-api/src/app/medicines"
 
 type usecase struct {
-	repo medicines.Repository
+	repo medicines.Repositories
 }
 
 // CountMedicineByID implements medicines.Services
@@ -41,6 +41,6 @@ func (uc *usecase) RemoveMedicineByID(id int) (err error) {
 	return
 }
 
-func NewService(repo medicines.Repository) medicines.Services {
+func NewService(repo medicines.Repositories) medicines.Services {
 	return &usecase{repo}
 }

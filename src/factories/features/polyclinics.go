@@ -1,4 +1,4 @@
-package polyclinics
+package features
 
 import (
 	"digimer-api/src/app/polyclinics/handlers"
