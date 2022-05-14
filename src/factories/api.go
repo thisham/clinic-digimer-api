@@ -1,6 +1,7 @@
 package factories
 
 import (
+	doctorsHandler "digimer-api/src/app/doctors/handlers"
 	medicalRecordCategoryHandler "digimer-api/src/app/medical_record_categories/handlers"
 	medicinesHandler "digimer-api/src/app/medicines/handlers"
 	patientsHandler "digimer-api/src/app/patients/handlers"
@@ -14,6 +15,7 @@ type apiHandler struct {
 	Medicine              medicinesHandler.Handler
 	MedicalRecordCategory medicalRecordCategoryHandler.Handler
 	Patient               patientsHandler.Handler
+	Doctor                doctorsHandler.Handler
 }
 
 func ApiInit() apiHandler {
@@ -24,5 +26,6 @@ func ApiInit() apiHandler {
 		Medicine:              features.MedicineFactory(conn.DB),
 		MedicalRecordCategory: features.MedicalRecordCategoryFactory(conn.DB),
 		Patient:               features.PatientFactory(conn.DB),
+		Doctor:                features.DoctorFactory(conn.DB),
 	}
 }

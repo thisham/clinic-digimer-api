@@ -46,5 +46,14 @@ func New() *echo.Echo {
 	api.PUT("/patients/id/:id", apiFactory.Patient.AmendPatientByIDHandler)
 	api.DELETE("/patients/id/:id", apiFactory.Patient.RemovePatientByIDHandler)
 
+	// doctors
+	api.GET("/doctors", apiFactory.Doctor.ShowAllDoctorsHandler)
+	api.GET("/doctors/:id", apiFactory.Doctor.ShowDoctorByIDHandler)
+	api.POST("/doctors/auth/login", apiFactory.Doctor.AttemptDoctorLoginHandler)
+	api.POST("/doctors", apiFactory.Doctor.CreateDoctorHandler)
+	api.PUT("/doctors/profile/:id", apiFactory.Doctor.AmendDoctorByIDHandler)
+	api.PUT("/doctors/password/:id", apiFactory.Doctor.AmendPasswordByDoctorIDHandler)
+	api.DELETE("/doctors/:id", apiFactory.Doctor.RemoveDoctorByIDHandler)
+
 	return route
 }

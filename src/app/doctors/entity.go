@@ -21,7 +21,6 @@ type Domain struct {
 	Phone      string
 	Email      string
 	Password   string
-	BirthDate  time.Time
 	CreatedAt  time.Time
 	UpdatedAt  time.Time
 	Polyclinic PolyclinicReference
