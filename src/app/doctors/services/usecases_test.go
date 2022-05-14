@@ -185,10 +185,10 @@ func TestCountDoctorByID(t *testing.T) {
 func TestCreateDoctor(t *testing.T) {
 	t.Run("should successfully added doctor data", func(t *testing.T) {
 		mockRepo.On("InsertData", sampleCreateInput).Return(sampleUUID.String(), nil).Once()
-		uid, err := services.CreateDoctor(sampleCreateInput)
+		id, err := services.CreateDoctor(sampleCreateInput)
 
 		assert.Nil(t, err)
-		assert.NotEqual(t, uuid.Nil.String(), uid)
+		assert.NotEqual(t, uuid.Nil.String(), id)
 	})
 
 	t.Run("should got database error", func(t *testing.T) {
