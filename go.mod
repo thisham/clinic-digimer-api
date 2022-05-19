@@ -14,6 +14,8 @@ require (
 	gorm.io/driver/mysql v1.3.3
 )
 
+require golang.org/x/time v0.0.0-20201208040808-7e3f01d25324 // indirect
+
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/fsnotify/fsnotify v1.5.1 // indirect
