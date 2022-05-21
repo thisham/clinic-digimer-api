@@ -1,0 +1,61 @@
+post:
+  tags: [ 'Medical Record' ]
+
+  security:
+    - CookieAuth: []
+
+  requestBody:
+    required: true
+    content: 
+      application/json:
+        schema:
+          $ref: '../../components/schemas/doctor.yml#/request'
+  
+  responses:
+    '201': 
+      description: Created
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '../../components/responses/successes.yml#/body201'
+              - type: object 
+                properties:
+                  id:
+                    type: string
+                    example: ad112233-dumm-dumm-dumm-dummycreated
+    '400': 
+      $ref: '../../components/responses/user-fails.yml#/head400'
+    '401': 
+      $ref: '../../components/responses/user-fails.yml#/head401'
+    '403': 
+      $ref: '../../components/responses/user-fails.yml#/head403'
+    '500': 
+      $ref: '../../components/responses/server-fails.yml#/head500'
+
+get:
+  tags: [ 'Medical Record' ]
+  
+  security:
+    - CookieAuth: []
+    
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '../../components/responses/successes.yml#/body200'
+              - type: object
+                properties: 
+                  data:
+                    type: array 
+                    items:
+                      $ref: '../../components/schemas/doctor.yml#/request'
+    '401': 
+      $ref: '../../components/responses/user-fails.yml#/head401'
+    '403': 
+      $ref: '../../components/responses/user-fails.yml#/head403'
+    '500': 
+      $ref: '../../components/responses/server-fails.yml#/head500'

@@ -1,0 +1,27 @@
+_id:
+  type: object 
+  properties:
+    id:
+      type: number
+      example: 1
+
+_main:
+  type: object
+  properties:
+    name:
+      type: string
+      example: General
+
+response:
+  type: object 
+  properties:
+    id:
+      type: number
+      example: 1
+    name:
+      type: string
+      example: General
+
+request:
+  allOf:
+    - $ref: '#/_main'

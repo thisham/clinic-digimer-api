@@ -1,0 +1,12 @@
+get:
+  tags: [ 'Root' ]
+  responses:
+    '200':
+      description: OK
+      content:
+        text/html: 
+          schema:
+            type: string 
+            example:
+              <html><body>Server runs perfectly!</body></html>
+ 

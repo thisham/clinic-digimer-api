@@ -1,0 +1,61 @@
+post:
+  tags: [ 'Polyclinic' ]
+
+  security:
+    - CookieAuth: []
+
+  requestBody:
+    required: true
+    content: 
+      application/json:
+        schema:
+          $ref: '../../components/schemas/polyclinic.yml#/request'
+  
+  responses:
+    '201': 
+      description: Created
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '../../components/responses/successes.yml#/body201'
+              - type: object 
+                properties:
+                  id:
+                    type: number
+                    example: 1
+    '400': 
+      $ref: '../../components/responses/user-fails.yml#/head400'
+    '401': 
+      $ref: '../../components/responses/user-fails.yml#/head401'
+    '403': 
+      $ref: '../../components/responses/user-fails.yml#/head403'
+    '500': 
+      $ref: '../../components/responses/server-fails.yml#/head500'
+
+get:
+  tags: [ 'Polyclinic' ]
+  
+  security:
+    - CookieAuth: []
+    
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '../../components/responses/successes.yml#/body200'
+              - type: object
+                properties: 
+                  data:
+                    type: array 
+                    items:
+                      $ref: '../../components/schemas/polyclinic.yml#/response'
+    '401': 
+      $ref: '../../components/responses/user-fails.yml#/head401'
+    '403': 
+      $ref: '../../components/responses/user-fails.yml#/head403'
+    '500': 
+      $ref: '../../components/responses/server-fails.yml#/head500'

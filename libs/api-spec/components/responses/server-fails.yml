@@ -1,0 +1,19 @@
+body500:
+  type: object
+  properties: 
+    meta: 
+      type: object
+      properties:
+        message:
+          type: string
+          example: Internal Server Error
+        code:
+          type: number
+          example: 500
+
+head500:
+  description: Internal Server Error
+  content:
+    application/json:
+      schema:
+        $ref: '#/body500'
