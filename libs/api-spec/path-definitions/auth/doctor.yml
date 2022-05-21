@@ -1,0 +1,39 @@
+post:
+  tags: [ 'Authentication' ]
+
+  requestBody:
+    required: true
+    content: 
+      application/json:
+        schema:
+          $ref: '../../components/schemas/doctor.yml#/auth'
+  
+  responses:
+    '201': 
+      description: Created
+      headers: 
+        Set-Cookie:
+          schema: 
+            type: string
+            example: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c; Path=/; HttpOnly
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '../../components/responses/successes.yml#/body201'
+              - type: object 
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      token:
+                         type: string
+                         example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+    '400': 
+      $ref: '../../components/responses/user-fails.yml#/head400'
+    '401': 
+      $ref: '../../components/responses/user-fails.yml#/head401'
+    '403': 
+      $ref: '../../components/responses/user-fails.yml#/head403'
+    '500': 
+      $ref: '../../components/responses/server-fails.yml#/head500'

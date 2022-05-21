@@ -1,0 +1,83 @@
+_medical_record_detail:
+  icd: 
+    type: string 
+    example: A75.0
+  diagnose:
+    type: string 
+    example: Typhoid Fever
+  description:
+    type: string
+    example: This is description.
+
+_date:
+  type: object
+  properties:
+    created_at:
+      type: date
+      example: 2022-08-10 22:22:20
+    updated_at:
+      type: date
+      example: 2022-08-10 22:22:20
+
+_id:
+  type: object
+  properties:
+    id: 
+      type: string
+      example: add11223-dumm-dumm-dumm-dummycreated
+
+_patient_data:
+  allOf:
+    - $ref: 'patient.yml#/_id'
+    - $ref: 'patient.yml#/_mr_book'
+    - $ref: 'patient.yml#/_main'
+
+_doctor_data:
+  allOf:
+    - $ref: 'doctor.yml#/_id'
+    - $ref: 'doctor.yml#/_email'
+    - $ref: 'doctor.yml#/_main'
+
+_medical_record_categories_data:
+  allOf:
+    - $ref: 'medical-record-category.yml#/_id'
+    - $ref: 'medical-record-category.yml#/_main'
+
+_medical_record:
+  type: object
+  properties:
+    patient:
+      $ref: '#/_patient_data'
+    doctor:
+      $ref: '#/_doctor_data'
+    medical_record_categories:
+      $ref: '#/_medical_record_categories_data'
+
+response:
+  allOf:
+    - $ref: '#/_id'
+    - $ref: '#/_medical_record'
+    - $ref: '#/_medical_record_detail'
+    - $ref: '#/_date'
+
+request:
+  type: object
+  properties: 
+    medical_record_category_id:
+      type: number
+      example: 1
+    doctor_id:
+      type: string
+      example: ad112233-dumm-dumm-dumm-dummycreated
+    patient_id:
+      type: string
+      example: ad112233-dumm-dumm-dumm-dummycreated
+    icd:
+      type: string
+      example: A75.0
+    diagnose:
+      type: string
+      example: Typhoid Fever
+    description: 
+      type: string
+      example: This is a description.

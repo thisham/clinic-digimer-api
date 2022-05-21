@@ -1,0 +1,42 @@
+body200:
+  type: object
+  properties: 
+    meta: 
+      type: object
+      properties:
+        message:
+          type: string
+          example: OK
+        code:
+          type: number
+          example: 200
+
+body201:
+  type: object
+  properties: 
+    meta: 
+      type: object
+      properties:
+        message:
+          type: string
+          example: Created
+        code:
+          type: number
+          example: 201
+
+head200:
+  description: OK
+  content:
+    application/json:
+      schema:
+        $ref: "#/body200"
+
+head201:
+  description: Created
+  content:
+    application/json:
+      schema:
+        $ref: "#/body201"
+
+head204:
+  description: No Content

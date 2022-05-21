@@ -1,0 +1,57 @@
+openapi: 3.0.0
+info:
+  title: "API"
+  version: "1.0.0"
+  contact:
+    name: Contact Name
+    email: contact@example.com
+    url: https://example.com/
+tags:
+  - name: Root
+    description: Root route contains minimum html page.
+  - name: Doctor
+  - name: Patient 
+  - name: Authentication
+  - name: Polyclinic
+  - name: Medical Record Category
+  - name: Medical Record
+paths:
+  /:
+    $ref: path-definitions/root.yml
+
+  /api/doctors:
+    $ref: path-definitions/doctors/index.yml
+  /api/doctors/:id:
+    $ref: path-definitions/doctors/{id}.yml
+
+  /api/patients:
+    $ref: path-definitions/patients/index.yml
+  /api/patients/mr/:mr:
+    $ref: path-definitions/patients/{mr}.yml
+  /api/patients/id/:id:
+    $ref: path-definitions/patients/{id}.yml
+
+  /api/polyclinics:
+    $ref: path-definitions/polyclinics/index.yml
+  /api/polyclinics/:id:
+    $ref: path-definitions/polyclinics/{id}.yml
+    
+  /api/medical-record-categories:
+    $ref: path-definitions/medical-record-categories/index.yml
+  /api/medical-record-categories/:id:
+    $ref: path-definitions/medical-record-categories/{id}.yml
+
+  /api/medical-records:
+    $ref: path-definitions/medical-records/index.yml
+  /api/medical-records/:id:
+    $ref: path-definitions/medical-records/{id}.yml
+
+  /api/doctor/login:
+    $ref: path-definitions/auth/doctor.yml
+
+components:
+  securitySchemes:
+    cookieAuth:         # arbitrary name for the security scheme; will be used in the "security" key later
+      type: apiKey
+      in: cookie
+      name: token

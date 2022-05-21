@@ -1,0 +1,72 @@
+get:
+  tags: [ 'Medical Record' ]
+  
+  security:
+    - CookieAuth: []
+
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: ../../components/responses/successes.yml#/body200
+              - $ref: ../../components/schemas/medical-record-category.yml#/response
+    '400': 
+      $ref: ../../components/responses/user-fails.yml#/head400
+    '401': 
+      $ref: ../../components/responses/user-fails.yml#/head401
+    '403': 
+      $ref: ../../components/responses/user-fails.yml#/head403
+    '404': 
+      $ref: ../../components/responses/user-fails.yml#/head404
+    '500': 
+      $ref: ../../components/responses/server-fails.yml#/head500
+
+put:
+  tags: [ 'Medical Record' ]
+
+  security:
+    - CookieAuth: []
+
+  requestBody:
+    required: true
+    content: 
+      application/json:
+        schema:
+          $ref: ../../components/schemas/medical-record-category.yml#/request
+  
+  responses:
+    '204': 
+      $ref: ../../components/responses/successes.yml#/head204
+    '400': 
+      $ref: ../../components/responses/user-fails.yml#/head400
+    '401': 
+      $ref: ../../components/responses/user-fails.yml#/head401
+    '403': 
+      $ref: ../../components/responses/user-fails.yml#/head403
+    '404': 
+      $ref: ../../components/responses/user-fails.yml#/head404
+    '500': 
+      $ref: ../../components/responses/server-fails.yml#/head500
+
+delete: 
+  tags: [ 'Medical Record' ]
+
+  security:
+    - CookieAuth: []
+    
+  responses:
+    '204': 
+      $ref: ../../components/responses/successes.yml#/head204
+    '400': 
+      $ref: ../../components/responses/user-fails.yml#/head400
+    '401': 
+      $ref: ../../components/responses/user-fails.yml#/head401
+    '403': 
+      $ref: ../../components/responses/user-fails.yml#/head403
+    '404': 
+      $ref: ../../components/responses/user-fails.yml#/head404
+    '500': 
+      $ref: ../../components/responses/server-fails.yml#/head500

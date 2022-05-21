@@ -1,0 +1,79 @@
+body400:
+  type: object
+  properties:
+    meta: 
+      type: object
+      properties: 
+        message:
+          type: string
+          example: Bad Request
+        code:
+          type: number
+          example: 400
+
+body401:
+  type: object
+  properties:
+    meta: 
+      type: object
+      properties: 
+        message:
+          type: string
+          example: Unauthorized
+        code:
+          type: number
+          example: 401
+
+body403:
+  type: object
+  properties: 
+    meta: 
+      type: object
+      properties:
+        message:
+          type: string
+          example: Forbidden
+        code:
+          type: number
+          example: 403
+
+body404:
+  type: object
+  properties: 
+    meta: 
+      type: object
+      properties:
+        message:
+          type: string
+          example: Not Found
+        code:
+          type: number
+          example: 404
+
+head400:
+  description: Bad Request
+  content:
+    application/json:
+      schema:
+        $ref: '#/body400'
+
+head401:
+  description: Bad Request
+  content:
+    application/json:
+      schema:
+        $ref: '#/body401'
+
+head403:
+  description: Bad Request
+  content:
+    application/json:
+      schema:
+        $ref: '#/body403'
+
+head404:
+  description: Not Found
+  content:
+    application/json:
+      schema:
+        $ref: '#/body404'
