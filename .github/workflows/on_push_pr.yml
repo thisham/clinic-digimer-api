@@ -44,15 +44,31 @@ jobs:
         uses: actions/checkout@v2
         with:
           persist-credentials: false
-      - name: Setup Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: '1.17.5'
       - name: Semantic GitHub Release
         uses: go-semantic-release/action@v1.17.0
         with: 
           github-token: ${{ secrets.GH_TOKEN }}
 
+  docker-compose:
+    name: build docker image
+    runs-on: "ubuntu-latest"
+    needs: [ unit-test, release ]
+    steps:
+      - uses: actions/checkout@v2
+      - name: config .env
+        env:
+          ENV: ${{ secrets.ENV_APP }}
+        run: echo "$ENV" > app.env
+      - name: build image
+        run: docker build -t thisham/digimer-api:latest .
+      - name: login docker registry
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PAT }}
+      - name: push image to dockerhub
+        run: docker push thisham/digimer-api:latest
+  
   # docker-compose:
   #   name: build docker image
   #   runs-on: "ubuntu-latest"
@@ -64,7 +80,7 @@ jobs:
   #         ENV: ${{secrets.ENV_STAGING}}
   #       run: echo "$ENV" > app.env
   #     - name: build image
-  #       run: docker build -t thisham/merchandise-api:latest .
+  #       run: docker-compose up
   #     - name: login AWS ECR
   #       id: login-ecr
   #       uses: aws-actions/amazon-ecr-login@v1
@@ -73,8 +89,8 @@ jobs:
   #       env:
   #         ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
   #         ECR_REPOSITORY: digimer-api
-  #         IMAGE_TAG: 
-  #         username: ${{ secrets.DOCKERHUB_USERNAME }}
-  #         password: ${{ secrets.DOCKERHUB_PAT }}
+  #         IMAGE_TAG: latest
+  #         # username: ${{ secrets.DOCKERHUB_USERNAME }}
+  #         # password: ${{ secrets.DOCKERHUB_PAT }}
   #     - name: push image to dockerhub
-  #       run: docker push thisham/merchandise-api:latest
+  #       run: docker push thisham/digimer-api:latest

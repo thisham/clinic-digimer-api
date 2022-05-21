@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  mysql-development:
+    image: mysql:8.0.17
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: helloworld
+      MYSQL_DATABASE: digimer_api
+    volumes:
+      - my-datavolume:/var/lib/mysql
+    ports:
+      - "3308:3306"
+
+  app:
+    depends_on:
+      - mysql-development
+    build: .
+    container_name: digimer-api
+    ports:
+      - "19000:8000"
+    env_file:
+      - ./app.env
+
+volumes:
+  my-datavolume:
