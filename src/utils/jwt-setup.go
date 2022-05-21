@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"digimer-api/src/configs"
 	"net/http"
 	"time"
 
@@ -29,8 +30,9 @@ func GenerateJwt(userId string, role Role) (token string, err error) {
 		Role: role,
 	}
 
+	config, _ := configs.LoadServerConfig(".")
 	rawToken := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	token, err = rawToken.SignedString([]byte("configs.GetJwtSecret().SecretKey"))
+	token, err = rawToken.SignedString([]byte(config.JWTsecret))
 	return
 }
 
@@ -43,4 +45,16 @@ func SetJwtCookie(ec echo.Context, token string) {
 		HttpOnly: true,
 	}
 	ec.SetCookie(&authCookie)
+}
+
+func ExtractClaims(tokenStr string) (JwtCustomClaims, error) {
+	config, _ := configs.LoadServerConfig(".")
+	hmacSecretString := config.JWTsecret
+
+	token, err := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
+		return []byte(hmacSecretString), nil
+	})
+
+	claims := token.Claims.(JwtCustomClaims)
+	return claims, err
 }

@@ -1,7 +1,9 @@
 package database
 
 import (
+	doctors "digimer-api/src/app/doctors/repositories"
 	medicalRecordCategories "digimer-api/src/app/medical_record_categories/repositories"
+	medicalRecords "digimer-api/src/app/medical_records/repositories"
 	medicines "digimer-api/src/app/medicines/repositories"
 	patients "digimer-api/src/app/patients/repositories"
 	polyclinics "digimer-api/src/app/polyclinics/repositories"
@@ -26,7 +28,9 @@ func (DB *DBConf) Migrate() {
 		&polyclinics.Polyclinic{},
 		&medicines.Medicine{},
 		&medicalRecordCategories.MedicalRecordCategory{},
-		patients.Patient{},
+		&patients.Patient{},
+		&doctors.Doctor{},
+		&medicalRecords.MedicalRecord{},
 	)
 }
 
@@ -35,6 +39,8 @@ func (DB *DBConf) Demigrate() {
 		&polyclinics.Polyclinic{},
 		&medicines.Medicine{},
 		&medicalRecordCategories.MedicalRecordCategory{},
-		patients.Patient{},
+		&patients.Patient{},
+		&doctors.Doctor{},
+		&medicalRecords.MedicalRecord{},
 	)
 }
